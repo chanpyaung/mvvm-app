@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -37,7 +38,29 @@ dependencies {
     implementation Dependencies.androidxAppCompat
     implementation Dependencies.material
     implementation Dependencies.androidxConstraintLayout
+
+    implementation Dependencies.kotlinStdLib
+    api Dependencies.coroutinesCore
+    api Dependencies.coroutinesAndroid
+    implementation Dependencies.androidxLifecycle
+    implementation Dependencies.androidxLifecycleKtx
+
+    implementation Dependencies.lifeCycleViewModel
+    implementation Dependencies.lifeCycleLiveData
+
+    implementation Dependencies.navigation
+    implementation Dependencies.navigationFragment
+
+    implementation Dependencies.koin
+
+    implementation Dependencies.squareRetrofit
+    implementation Dependencies.squareRetrofitGsonConverter
+
+    implementation Dependencies.room
+    kapt Dependencies.roomCompiler
+
     testImplementation Dependencies.junit
     androidTestImplementation Dependencies.androidxTestJunit
     androidTestImplementation Dependencies.androidxTestEspresso
+    testImplementation Dependencies.androidxLifecycleRuntimeTesting
 }
