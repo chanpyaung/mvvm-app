@@ -18,4 +18,8 @@ data class Result(
     val resourceId: String,
     @SerializedName("total")
     val total: Int
-)
+) {
+    override fun toString(): String {
+        return "Result(fields=$fields, limit=$limit, links=$links, offset=$offset, records=$records, resourceId='$resourceId', total=$total)"
+    }
+}
