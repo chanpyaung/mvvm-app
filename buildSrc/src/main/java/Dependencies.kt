@@ -50,6 +50,7 @@ object Dependencies {
     const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinCoroutines}"
     const val room = "androidx.room:room-ktx:${Versions.room}"
     const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
+    const val roomCoroutines = "androidx.room:room-coroutines:${Versions.room}"
     const val roomTesting = "androidx.room:room-testing:${Versions.room}"
     const val koin = "io.insert-koin:koin-android:${Versions.koin}"
     const val navigation = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
@@ -57,8 +58,10 @@ object Dependencies {
     const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
 }
 
+
 object Plugins {
     const val android = "com.android.application"
     const val library = "com.android.library"
     const val kotlinAndroid = "org.jetbrains.kotlin.android"
+    const val navigationSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}"
 }

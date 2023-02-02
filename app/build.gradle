@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs'
 }
 
 android {
@@ -14,7 +15,6 @@ android {
         targetSdk AndroidVersions.targetSdkVersion
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -30,6 +30,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
     }
 }
 
@@ -58,6 +61,7 @@ dependencies {
     implementation Dependencies.okhttp
 
     implementation Dependencies.room
+//    implementation Dependencies.roomCoroutines
     kapt Dependencies.roomCompiler
 
     testImplementation Dependencies.junit

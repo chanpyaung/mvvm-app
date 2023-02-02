@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class DataUsageViewModel(private val dataUsageRepository: DataUsageRepository): ViewModel() {
 
-    val dataUsage = MutableLiveData<DataUsage>()
+    val dataUsage = MutableLiveData<List<DataUsage>>()
 
     init {
         fetchDataUsage()
@@ -17,7 +17,7 @@ class DataUsageViewModel(private val dataUsageRepository: DataUsageRepository): 
 
     private fun fetchDataUsage() {
         viewModelScope.launch {
-            dataUsage.postValue(dataUsageRepository.getDataUsage())
+            dataUsage.postValue(dataUsageRepository.getDataUsages())
         }
     }
 

@@ -2,6 +2,7 @@ package com.chanaung.mvvmapp
 
 import android.app.Application
 import com.chanaung.mvvmapp.di.appModule
+import com.chanaung.mvvmapp.di.databaseModule
 import com.chanaung.mvvmapp.di.networkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -19,7 +20,8 @@ class MVVMApplication: Application() {
             modules(
                 listOf(
                     appModule,
-                    networkModule
+                    networkModule,
+                    databaseModule
                 )
             )
 
