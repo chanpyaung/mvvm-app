@@ -55,6 +55,7 @@ dependencies {
 
     implementation Dependencies.squareRetrofit
     implementation Dependencies.squareRetrofitGsonConverter
+    implementation Dependencies.okhttp
 
     implementation Dependencies.room
     kapt Dependencies.roomCompiler

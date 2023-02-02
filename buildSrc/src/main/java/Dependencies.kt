@@ -23,6 +23,7 @@ object Versions {
     const val room = "2.5.0"
     const val koin = "3.3.2"
     const val navigation = "2.5.3"
+    const val okhttp = "4.10.0"
 }
 
 object Dependencies {
@@ -53,6 +54,7 @@ object Dependencies {
     const val koin = "io.insert-koin:koin-android:${Versions.koin}"
     const val navigation = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
     const val navigationFragment = "androidx.navigation:navigation-fragment:${Versions.navigation}"
+    const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
 }
 
 object Plugins {
