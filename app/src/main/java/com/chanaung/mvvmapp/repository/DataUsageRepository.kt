@@ -3,9 +3,11 @@ package com.chanaung.mvvmapp.repository
 import com.chanaung.mvvmapp.data.DataUsage
 import com.chanaung.mvvmapp.data.QuarterlyUsage
 import com.chanaung.mvvmapp.local.*
+import com.chanaung.mvvmapp.network.NoConnectionInterceptor
 import com.chanaung.mvvmapp.network.api.GovDataSetApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.IOException
 
 interface DataUsageRepository {
     suspend fun getDataUsages(): List<DataUsage>
@@ -19,35 +21,39 @@ class DataUsageRepositoryImpl(private val api: GovDataSetApiService, private val
 
     override suspend fun fetchDataUsages() {
         withContext(Dispatchers.IO) {
-            val dataUsageResponse = api.dataStoreSearch("a807b7ab-6cad-4aa6-87d0-e283a7353a0f", 0, 100)
-            val records = dataUsageResponse.result.records
-            val yearMap = hashMapOf<Int, Double>()
-            val quarterlyUsageEntities = arrayListOf<QuarterlyUsagesEntity>()
-            records.forEachIndexed { index, record ->
-                val yearAndQuarter = record.quarter.split("-")
-                val year = yearAndQuarter[0].toInt()
-                val quarter = yearAndQuarter[1]
-                val mobileData = record.volumeOfMobileData.toDouble()
-                if (yearMap.containsKey(year)) {
-                    yearMap[year] = (yearMap[year] ?: 0.0).plus(mobileData)
-                } else {
-                    yearMap[year] = mobileData
-                }
-                quarterlyUsageEntities.add(
-                    QuarterlyUsagesEntity(
-                        id = record.id,
-                        yearOfEachQuarter = year,
-                        quarter = quarter,
-                        usage = mobileData
+            try {
+                val dataUsageResponse = api.dataStoreSearch("a807b7ab-6cad-4aa6-87d0-e283a7353a0f", 0, 100)
+                val records = dataUsageResponse.result.records
+                val yearMap = hashMapOf<Int, Double>()
+                val quarterlyUsageEntities = arrayListOf<QuarterlyUsagesEntity>()
+                records.forEachIndexed { index, record ->
+                    val yearAndQuarter = record.quarter.split("-")
+                    val year = yearAndQuarter[0].toInt()
+                    val quarter = yearAndQuarter[1]
+                    val mobileData = record.volumeOfMobileData.toDouble()
+                    if (yearMap.containsKey(year)) {
+                        yearMap[year] = (yearMap[year] ?: 0.0).plus(mobileData)
+                    } else {
+                        yearMap[year] = mobileData
+                    }
+                    quarterlyUsageEntities.add(
+                        QuarterlyUsagesEntity(
+                            id = record.id,
+                            yearOfEachQuarter = year,
+                            quarter = quarter,
+                            usage = mobileData
+                        )
                     )
-                )
-            }
-            val dataUsageEntities = yearMap.map {
-                DataUsageEntity(it.key, it.value)
-            }
-            dataUsageDao.insertAll(dataUsageEntities)
-            if (quarterlyUsageEntities.isNotEmpty()) {
-                quarterlyUsageDao.insertAll(quarterlyUsageEntities)
+                }
+                val dataUsageEntities = yearMap.map {
+                    DataUsageEntity(it.key, it.value)
+                }
+                dataUsageDao.insertAll(dataUsageEntities)
+                if (quarterlyUsageEntities.isNotEmpty()) {
+                    quarterlyUsageDao.insertAll(quarterlyUsageEntities)
+                }
+            } catch (e: Exception) {
+                throw e
             }
         }
     }

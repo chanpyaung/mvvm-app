@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chanaung.mvvmapp.databinding.FragmentDataUsageListBinding
 import com.chanaung.mvvmapp.viewmodels.DataUsageViewModel
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DataUsageListFragment : Fragment() {
@@ -46,6 +47,15 @@ class DataUsageListFragment : Fragment() {
 
             })
 
+        }
+        dataUsageViewModel.errorMessage.observe(viewLifecycleOwner) {
+            it?.let {
+                Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT)
+                    .setAction("Try Again") {
+                        dataUsageViewModel.fetchDataUsage()
+                    }
+                    .show()
+            }
         }
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
