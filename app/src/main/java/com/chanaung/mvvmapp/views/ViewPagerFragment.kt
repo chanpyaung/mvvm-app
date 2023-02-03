@@ -1,6 +1,7 @@
 package com.chanaung.mvvmapp.views
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,7 +38,9 @@ class ViewPagerFragment : Fragment() {
             binding.pager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    detailDataUsageViewModel.selectedDataUsage.postValue(it[args.selectedYear])
+                    val selectedUsage = it.reversed()[position]
+                    Log.d("DetailsDataUsageViewModel: TRACK YEAR -->", "${selectedUsage.year}")
+                    detailDataUsageViewModel.selectedDataUsage.postValue(selectedUsage)
                 }
             })
         }
