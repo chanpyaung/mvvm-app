@@ -3,6 +3,7 @@ package com.chanaung.mvvmapp.di
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
+import com.chanaung.mvvmapp.BuildConfig
 import com.chanaung.mvvmapp.local.AppDatabase
 import com.chanaung.mvvmapp.local.DataUsageDao
 import com.chanaung.mvvmapp.local.QuarterlyUsageDao
@@ -36,7 +37,7 @@ val networkModule = module {
 
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://data.gov.sg/api/action/")
+            .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

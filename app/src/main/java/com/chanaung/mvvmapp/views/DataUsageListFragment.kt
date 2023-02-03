@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -42,9 +43,8 @@ class DataUsageListFragment : Fragment() {
                         findNavController().navigate(it)
                     }
                 }
-
             })
-
+            binding.progress.isVisible = false
         }
         dataUsageViewModel.errorMessage.observe(viewLifecycleOwner) {
             it?.let {
@@ -53,6 +53,7 @@ class DataUsageListFragment : Fragment() {
                         dataUsageViewModel.fetchDataUsage()
                     }
                     .show()
+                binding.progress.isVisible = false
             }
         }
         binding.recyclerView.apply {
