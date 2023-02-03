@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.chanaung.mvvmapp.databinding.FragmentViewPagerBinding
 import com.chanaung.mvvmapp.viewmodels.DetailsDataUsageViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -33,6 +34,12 @@ class ViewPagerFragment : Fragment() {
             binding.pager.adapter = adapter
             binding.pager.offscreenPageLimit = 1
             binding.pager.currentItem = args.selectedYear
+            binding.pager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    detailDataUsageViewModel.selectedDataUsage.postValue(it[args.selectedYear])
+                }
+            })
         }
     }
 
