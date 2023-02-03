@@ -16,12 +16,6 @@
         android:label="fragment_data_usage_list"
         tools:layout="@layout/fragment_data_usage_list" >
         <action
-            android:id="@+id/action_dataUsageListFragment_to_detailsDataUsageFragment"
-            app:destination="@id/detailsDataUsageFragment"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/dataUsageListFragment" />
-        <action
             android:id="@+id/action_dataUsageListFragment_to_viewPagerFragment"
             app:destination="@id/viewPagerFragment"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -37,5 +31,11 @@
         android:id="@+id/viewPagerFragment"
         android:name="com.chanaung.mvvmapp.views.ViewPagerFragment"
         android:label="fragment_view_pager"
-        tools:layout="@layout/fragment_view_pager" />
+        tools:layout="@layout/fragment_view_pager">
+        <argument
+            android:name="selectedYear"
+            app:argType="integer"
+            android:defaultValue="0"
+            />
+    </fragment>
 </navigation>

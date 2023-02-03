@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chanaung.mvvmapp.databinding.FragmentDataUsageListBinding
 import com.chanaung.mvvmapp.viewmodels.DataUsageViewModel
@@ -36,7 +38,8 @@ class DataUsageListFragment : Fragment() {
         dataUsageViewModel.dataUsage.observe(viewLifecycleOwner) {
             binding.recyclerView.adapter = DataUsageListAdapter(it, object : ViewItemClickListener {
                 override fun onClick(position: Int) {
-                    DataUsageListFragmentDirections.actionDataUsageListFragmentToViewPagerFragment().let {
+                    val bundle = bundleOf("selectedYear" to position)
+                    DataUsageListFragmentDirections.actionDataUsageListFragmentToViewPagerFragment().setSelectedYear(position).let {
                         findNavController().navigate(it)
                     }
                 }
@@ -46,7 +49,7 @@ class DataUsageListFragment : Fragment() {
         }
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
-
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
     }
 }

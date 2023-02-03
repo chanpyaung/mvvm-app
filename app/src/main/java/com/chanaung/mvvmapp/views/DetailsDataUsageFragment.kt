@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.chanaung.mvvmapp.R
 import com.chanaung.mvvmapp.data.DataUsage
 import com.chanaung.mvvmapp.databinding.FragmentDetailsDataUsageBinding
@@ -41,6 +44,15 @@ class DetailsDataUsageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         dataUsage.apply {
             binding.yearTextView.text = "YEAR ${dataUsage.year}"
+            val usageItems = dataUsage.quarterlyUsages.map {
+                UsageItem(it.quarter, it.usage, dataUsage.totalUsage)
+            }.toMutableList()
+            usageItems.add(UsageItem("Total", dataUsage.totalUsage, dataUsage.totalUsage))
+            binding.recyclerView.apply {
+                adapter = QuarterlyUsageAdapter(usageItems)
+                addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+                layoutManager = LinearLayoutManager(context)
+            }
         }
     }
 

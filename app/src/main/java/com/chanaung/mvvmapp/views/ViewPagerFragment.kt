@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.chanaung.mvvmapp.databinding.FragmentViewPagerBinding
 import com.chanaung.mvvmapp.viewmodels.DetailsDataUsageViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -14,6 +15,7 @@ class ViewPagerFragment : Fragment() {
     private val detailDataUsageViewModel: DetailsDataUsageViewModel by viewModel()
     private var _binding: FragmentViewPagerBinding? = null
     private val binding get() = _binding!!
+    private val args: ViewPagerFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +32,7 @@ class ViewPagerFragment : Fragment() {
             val adapter = ViewPagerAdapter(it, fragmentManager = childFragmentManager, lifecycle)
             binding.pager.adapter = adapter
             binding.pager.offscreenPageLimit = 1
-            binding.pager.currentItem = 3
+            binding.pager.currentItem = args.selectedYear
         }
     }
 
