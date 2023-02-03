@@ -68,4 +68,13 @@ dependencies {
     androidTestImplementation Dependencies.androidxTestJunit
     androidTestImplementation Dependencies.androidxTestEspresso
     testImplementation Dependencies.androidxLifecycleRuntimeTesting
+
+    testImplementation Dependencies.koinTest
+    androidTestImplementation Dependencies.koinTest
+    androidTestImplementation Dependencies.mockWebServer
+    testImplementation Dependencies.mockWebServer
+    testImplementation Dependencies.mockk
+    testImplementation Dependencies.androidArchCoreTest
+    androidTestImplementation Dependencies.androidArchCoreTest
+    testImplementation Dependencies.coroutineTest
 }

@@ -10,6 +10,8 @@ import com.chanaung.mvvmapp.network.NoConnectionInterceptor
 import com.chanaung.mvvmapp.network.api.GovDataSetApiService
 import com.chanaung.mvvmapp.repository.DataUsageRepository
 import com.chanaung.mvvmapp.repository.DataUsageRepositoryImpl
+import com.chanaung.mvvmapp.repository.DataUsageUseCase
+import com.chanaung.mvvmapp.repository.DataUsageUseCaseImpl
 import com.chanaung.mvvmapp.viewmodels.DataUsageViewModel
 import com.chanaung.mvvmapp.viewmodels.DetailsDataUsageViewModel
 import com.google.gson.FieldNamingPolicy
@@ -24,7 +26,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val appModule = module {
-    single<DataUsageRepository> { DataUsageRepositoryImpl(get(), get(), get()) }
+    single<DataUsageUseCase> { DataUsageUseCaseImpl(get(), get(), get()) }
     viewModel { DataUsageViewModel(get()) }
     viewModel { DetailsDataUsageViewModel(get()) }
 }
@@ -61,6 +63,14 @@ val networkModule = module {
     single { provideRetrofit(get()) }
     single { provideGson() }
     single { provideGovDataSetApiService(get()) }
+}
+
+val repositoryModule = module {
+    fun provideDataUsageRepository(apiService: GovDataSetApiService): DataUsageRepository {
+        return DataUsageRepositoryImpl(apiService)
+    }
+
+    single { provideDataUsageRepository(get()) }
 }
 
 val databaseModule = module {

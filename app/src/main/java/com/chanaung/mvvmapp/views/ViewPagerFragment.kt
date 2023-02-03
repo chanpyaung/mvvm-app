@@ -30,7 +30,7 @@ class ViewPagerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         detailDataUsageViewModel.dataUsages.observe(viewLifecycleOwner) {
-            val adapter = ViewPagerAdapter(it, fragmentManager = childFragmentManager, lifecycle)
+            val adapter = ViewPagerAdapter(it.reversed(), fragmentManager = childFragmentManager, lifecycle)
             binding.pager.adapter = adapter
             binding.pager.offscreenPageLimit = 1
             binding.pager.currentItem = args.selectedYear

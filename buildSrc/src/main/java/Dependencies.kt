@@ -24,6 +24,8 @@ object Versions {
     const val koin = "3.3.2"
     const val navigation = "2.5.3"
     const val okhttp = "4.10.0"
+    const val mockk = "1.13.4"
+    const val androidArchCoreTest = "2.1.0"
 }
 
 object Dependencies {
@@ -48,14 +50,20 @@ object Dependencies {
     const val lifeCycleCommonJava8 = "androidx.lifecycle:lifecycle-common-java8:${Versions.lifeCycle}"
     const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutines}"
     const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinCoroutines}"
+    const val coroutineTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.kotlinCoroutines}"
     const val room = "androidx.room:room-ktx:${Versions.room}"
     const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
     const val roomCoroutines = "androidx.room:room-coroutines:${Versions.room}"
     const val roomTesting = "androidx.room:room-testing:${Versions.room}"
+    const val koinCore = "io.insert-koin:koin-core:${Versions.koin}"
     const val koin = "io.insert-koin:koin-android:${Versions.koin}"
+    const val koinTest = "io.insert-koin:koin-test:${Versions.koin}"
     const val navigation = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
     const val navigationFragment = "androidx.navigation:navigation-fragment:${Versions.navigation}"
     const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
+    const val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Versions.okhttp}"
+    const val mockk = "io.mockk:mockk:${Versions.mockk}"
+    const val androidArchCoreTest = "androidx.arch.core:core-testing:${Versions.androidArchCoreTest}"
 }
 
 
