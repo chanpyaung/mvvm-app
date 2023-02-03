@@ -21,10 +21,21 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/dataUsageListFragment" />
+        <action
+            android:id="@+id/action_dataUsageListFragment_to_viewPagerFragment"
+            app:destination="@id/viewPagerFragment"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/dataUsageListFragment"/>
     </fragment>
     <fragment
         android:id="@+id/detailsDataUsageFragment"
         android:name="com.chanaung.mvvmapp.views.DetailsDataUsageFragment"
         android:label="fragment_details_data_usage"
         tools:layout="@layout/fragment_details_data_usage" />
+    <fragment
+        android:id="@+id/viewPagerFragment"
+        android:name="com.chanaung.mvvmapp.views.ViewPagerFragment"
+        android:label="fragment_view_pager"
+        tools:layout="@layout/fragment_view_pager" />
 </navigation>

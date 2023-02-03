@@ -12,11 +12,12 @@ interface DataUsageRepository {
 
     suspend fun getQuarterlyUsageOfAYear(year: Int): List<QuarterlyUsage>
 
+    suspend fun fetchDataUsages()
 }
 
 class DataUsageRepositoryImpl(private val api: GovDataSetApiService, private val dataUsageDao: DataUsageDao, private val quarterlyUsageDao: QuarterlyUsageDao): DataUsageRepository {
 
-    override suspend fun getDataUsages(): List<DataUsage> {
+    override suspend fun fetchDataUsages() {
         withContext(Dispatchers.IO) {
             val dataUsageResponse = api.dataStoreSearch("a807b7ab-6cad-4aa6-87d0-e283a7353a0f", 0, 100)
             val records = dataUsageResponse.result.records
@@ -49,6 +50,8 @@ class DataUsageRepositoryImpl(private val api: GovDataSetApiService, private val
                 quarterlyUsageDao.insertAll(quarterlyUsageEntities)
             }
         }
+    }
+    override suspend fun getDataUsages(): List<DataUsage> {
         return dataUsageDao.getYearsWithQuarterlyUsages().map {
             mappedDataUsageWithQuarterlyRecordsToDataUsage(it)
         }

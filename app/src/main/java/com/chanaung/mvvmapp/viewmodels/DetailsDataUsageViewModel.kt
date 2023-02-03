@@ -7,18 +7,15 @@ import com.chanaung.mvvmapp.data.DataUsage
 import com.chanaung.mvvmapp.repository.DataUsageRepository
 import kotlinx.coroutines.launch
 
-class DataUsageViewModel(private val dataUsageRepository: DataUsageRepository): ViewModel() {
+class DetailsDataUsageViewModel(private val dataUsageRepository: DataUsageRepository): ViewModel() {
 
-    val dataUsage = MutableLiveData<List<DataUsage>>()
+    val selectedDataUsage = MutableLiveData<DataUsage>()
+    val dataUsages = MutableLiveData<List<DataUsage>>()
 
     init {
-        fetchDataUsage()
-    }
-
-    private fun fetchDataUsage() {
         viewModelScope.launch {
-            dataUsageRepository.fetchDataUsages().apply {
-                dataUsage.postValue(dataUsageRepository.getDataUsages())
+            dataUsageRepository.getDataUsages().apply {
+                dataUsages.postValue(this)
             }
         }
     }

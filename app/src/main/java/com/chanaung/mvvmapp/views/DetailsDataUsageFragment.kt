@@ -6,13 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.chanaung.mvvmapp.R
+import com.chanaung.mvvmapp.data.DataUsage
+import com.chanaung.mvvmapp.databinding.FragmentDetailsDataUsageBinding
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailsDataUsageFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DetailsDataUsageFragment : Fragment() {
+
+    private lateinit var dataUsage: DataUsage
+    private var _binding: FragmentDetailsDataUsageBinding? = null
+    private val binding get() = _binding!!
+
+    companion object {
+        @JvmStatic
+        fun newInstance(mDataUsage: DataUsage) =
+            DetailsDataUsageFragment().apply {
+                this.dataUsage = mDataUsage
+            }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,22 +33,19 @@ class DetailsDataUsageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_details_data_usage, container, false)
+        _binding = FragmentDetailsDataUsageBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailsDataUsageFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DetailsDataUsageFragment().apply {
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        dataUsage.apply {
+            binding.yearTextView.text = "YEAR ${dataUsage.year}"
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

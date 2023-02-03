@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chanaung.mvvmapp.databinding.FragmentDataUsageListBinding
 import com.chanaung.mvvmapp.viewmodels.DataUsageViewModel
@@ -22,8 +23,7 @@ class DataUsageListFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentDataUsageListBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onDestroyView() {
@@ -34,7 +34,14 @@ class DataUsageListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dataUsageViewModel.dataUsage.observe(viewLifecycleOwner) {
-            binding.recyclerView.adapter = DataUsageListAdapter(it)
+            binding.recyclerView.adapter = DataUsageListAdapter(it, object : ViewItemClickListener {
+                override fun onClick(position: Int) {
+                    DataUsageListFragmentDirections.actionDataUsageListFragmentToViewPagerFragment().let {
+                        findNavController().navigate(it)
+                    }
+                }
+
+            })
 
         }
         binding.recyclerView.apply {

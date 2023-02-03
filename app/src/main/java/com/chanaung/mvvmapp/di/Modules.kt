@@ -9,6 +9,7 @@ import com.chanaung.mvvmapp.network.api.GovDataSetApiService
 import com.chanaung.mvvmapp.repository.DataUsageRepository
 import com.chanaung.mvvmapp.repository.DataUsageRepositoryImpl
 import com.chanaung.mvvmapp.viewmodels.DataUsageViewModel
+import com.chanaung.mvvmapp.viewmodels.DetailsDataUsageViewModel
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -22,6 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 val appModule = module {
     single<DataUsageRepository> { DataUsageRepositoryImpl(get(), get(), get()) }
     viewModel { DataUsageViewModel(get()) }
+    viewModel { DetailsDataUsageViewModel(get()) }
 }
 
 
